@@ -1,15 +1,27 @@
 import React from 'react';
+import { useTheme } from '../App';
 
-function FeatureCard({ title, desc, img }) {
+function FeatureCard({ title, desc, icon }) {
+  const { theme } = useTheme();
+  
   return (
-    <div className="bg-gray-50 rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
-      <div className="flex-1 text-left">
-        <div className="font-bold text-lg mb-2 text-gray-900">{title}</div>
-        <div className="text-gray-600 text-base">{desc}</div>
-      </div>
-      <div className="w-40 h-28 bg-gradient-to-br from-yellow-100 to-yellow-300 rounded-xl flex items-center justify-center">
-        {/* Placeholder for feature image or screenshot */}
-        {img && <img src={img} alt="feature" className="max-h-24 max-w-full rounded" />}
+    <div className={`rounded-2xl shadow-lg p-8 flex flex-col items-start gap-5 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 h-full ${
+      theme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'
+    }`}>
+      {icon && (
+        <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${
+          theme === 'dark' ? 'bg-slate-700' : 'bg-yellow-100'
+        }`}>
+          {icon}
+        </div>
+      )}
+      <div className="text-left">
+        <div className={`font-bold text-xl mb-1 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>{title}</div>
+        <p className={`text-base leading-relaxed ${
+          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+        }`}>{desc}</p>
       </div>
     </div>
   );

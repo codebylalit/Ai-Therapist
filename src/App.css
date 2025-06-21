@@ -2,6 +2,110 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom animations for login/signup pages */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(250, 204, 21, 0.6); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Background pattern animation */
+@keyframes background-shift {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(10px) translateY(-10px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+.animate-background-shift {
+  animation: background-shift 20s ease-in-out infinite;
+}
+
+/* Enhanced button hover effects */
+.btn-primary {
+  @apply bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold rounded-xl px-6 py-3 text-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-60 disabled:transform-none shadow-lg hover:shadow-xl;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 25px rgba(250, 204, 21, 0.3);
+}
+
+.btn-secondary {
+  @apply text-sm transition-colors duration-300 hover:underline;
+}
+
+.btn-secondary:hover {
+  transform: translateX(-2px);
+}
+
+/* Enhanced input focus effects */
+.input-enhanced {
+  @apply w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-200;
+}
+
+.input-enhanced:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.15);
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply rounded-2xl shadow-xl transition-all duration-300;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.dark .card-hover:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
+}
+
+.dark .gradient-bg {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #0f172a 100%);
+}
+
+/* Enhanced form styling */
+.form-container {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.dark .form-container {
+  background: rgba(31, 41, 55, 0.95);
+}
+
+/* Loading spinner enhancement */
+.spinner {
+  @apply w-5 h-5 border-2 border-yellow-900 border-t-transparent rounded-full animate-spin;
+}
+
+/* Success state styling */
+.success-state {
+  @apply bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm;
+}
+
+.dark .success-state {
+  @apply bg-green-900/20 border-green-700 text-green-300;
+}
+
 .therapist-circle {
   width: 80px;
   height: 80px;
@@ -37,19 +141,14 @@ nav {
   font-family: inherit;
 }
 nav a {
-  color: #78350f;
   text-decoration: none;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  transition: background 0.2s, color 0.2s;
+  transition: color 0.2s;
 }
 nav a:hover {
-  background: #fde68a;
-  color: #b45309;
+  /* Removed yellow background hover effect - keeping only color transition */
 }
 nav a.font-bold.underline {
-  background: #facc15;
-  color: #fff;
+  /* Removed yellow background */
 }
 
 .therapist-circle-slime {
@@ -108,18 +207,38 @@ nav a.font-bold.underline {
   cursor: not-allowed;
 }
 
-.calmi-circle {
-  width: 160px;
-  height: 160px;
+.calmly-circle {
+  width: 30px;
+  height: 30px;
   background: #ffcb05;
   border-radius: 50%;
   margin: 0 auto;
   transition: transform 0.2s cubic-bezier(0.4,0,0.2,1);
-  animation: calmi-bounce 1.2s infinite alternate cubic-bezier(0.4,0,0.2,1);
+  animation: calmly-bounce 1.2s infinite alternate cubic-bezier(0.4,0,0.2,1);
   box-shadow: none;
 }
 
-@keyframes calmi-bounce {
+.calmly-zoom {
+  width: 30px;
+  height: 30px;
+  background: #ffcb05;
+  border-radius: 50%;
+  margin: 0 auto;
+  transition: transform 0.2s cubic-bezier(0.4,0,0.2,1);
+  animation: calmly-zoom-inout 1.2s infinite alternate cubic-bezier(0.4,0,0.2,1);
+  box-shadow: none;
+}
+
+@keyframes calmly-zoom-inout {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.10);
+  }
+}
+
+@keyframes calmly-bounce {
   0% { transform: scale(1, 1); }
   60% { transform: scale(1.08, 0.92); }
   100% { transform: scale(0.95, 1.05); }
@@ -142,11 +261,25 @@ nav a.font-bold.underline {
 .sidebar-btn.selected {
   color: #374151;
 }
+.sidebar-btn:hover {
+  color: #374151;
+}
 .sidebar-btn svg {
   transition: transform 0.2s ease;
 }
 .sidebar-btn:hover svg {
   transform: scale(1.05);
+}
+
+/* Dark theme support for sidebar buttons */
+.dark .sidebar-btn {
+  color: #9ca3af;
+}
+.dark .sidebar-btn.selected {
+  color: #d1d5db;
+}
+.dark .sidebar-btn:hover {
+  color: #d1d5db;
 }
 
 @keyframes slide-in-right {
