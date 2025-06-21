@@ -174,7 +174,7 @@ function LandingPage() {
         <nav className="flex items-center justify-between py-12">
           <Link
             to="/"
-            className={`text-2xl font-bold transition-colors duration-300 ${
+            className={`text-2xl font-semibold transition-colors duration-300 ${
               theme === "dark" ? "text-white" : "text-black"
             }`}
           >
@@ -205,7 +205,7 @@ function LandingPage() {
           {/* Headline Section */}
           <div className="max-w-2xl">
             <h1
-              className={`text-5xl md:text-6xl font-bold tracking-tight leading-tight mb-4 ${
+              className={`text-5xl md:text-6xl font-semibold tracking-tight leading-tight mb-4 ${
                 theme === "dark" ? "text-white" : "text-black"
               }`}
             >
@@ -214,7 +214,7 @@ function LandingPage() {
               it's just calmly.
             </h1>
             <p
-              className={`text-lg md:text-xl max-w-xl mb-6 ${
+              className={`text-lg md:text-lg max-w-xl mb-6 ${
                 theme === "dark" ? "text-gray-300" : "text-gray-600"
               }`}
             >

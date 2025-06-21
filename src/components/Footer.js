@@ -26,7 +26,7 @@ function Footer() {
         be heard. be understood. be better.
       </div>
       <Link to="/home">
-        <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold rounded px-6 py-3 text-lg shadow mb-8">
+        <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded px-6 py-3 text-lg shadow mb-8">
           try calmly free
         </button>
       </Link>

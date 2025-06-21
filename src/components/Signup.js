@@ -7,6 +7,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 const GoogleIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 48 48">
@@ -46,7 +48,15 @@ function Signup() {
     }
     setError("");
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Create user document in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        createdAt: serverTimestamp(),
+      });
+
       navigate("/home");
     } catch (err) {
       setError(err.message);
@@ -56,7 +66,22 @@ function Signup() {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Check if user document already exists
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        // Create user document in Firestore
+        await setDoc(userDocRef, {
+          email: user.email,
+          name: user.displayName || "", // Use Google display name if available
+          createdAt: serverTimestamp(),
+        });
+      }
+
       navigate("/home");
     } catch (err) {
       setError(err.message);
