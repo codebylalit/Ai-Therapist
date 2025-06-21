@@ -633,7 +633,7 @@ function Home() {
   );
 
   return (
-    <div className="flex w-full min-h-screen bg-gray-50/50">
+    <div className="flex w-full min-h-screen bg-gray-50/50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       {/* Notification Popup */}
       {notification.message && (
         <div className={`fixed bottom-8 right-8 z-50 px-6 py-3 rounded-xl shadow-lg font-semibold text-lg transition-all
