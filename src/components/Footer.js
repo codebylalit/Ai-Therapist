@@ -42,8 +42,17 @@ function Footer() {
         >
           calmly
         </span>
-        <span>socials instagram tiktok x (twitter) linkedin</span>
-        <span>legal privacy policy terms of service ai disclaimer</span>
+        <span>
+          socials
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" className="ml-1">instagram</a>{' '}
+          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="ml-1">linkedin</a>
+        </span>
+        <span>
+          <Link to="/legal" className="">legal</Link>{' '}
+          <Link to="/privacy-policy" className="">privacy policy</Link>{' '}
+          <Link to="/terms-of-service" className="">terms of service</Link>{' '}
+          <Link to="/ai-disclaimer" className="">ai disclaimer</Link>
+        </span>
       </div>
       <div
         className={`text-xs transition-colors duration-300 ${

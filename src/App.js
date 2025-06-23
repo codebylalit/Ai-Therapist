@@ -5,6 +5,10 @@ import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Legal from './components/Legal';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import AiDisclaimer from './components/AiDisclaimer';
 import './App.css';
 
 // Create theme context
@@ -47,6 +51,10 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/ai-disclaimer" element={<AiDisclaimer />} />
           </Routes>
         </div>
       </div>
