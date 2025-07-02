@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Ai Therapist
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ai Therapist is a web application that provides users with an AI-powered chat experience for mental wellness and self-reflection. The app features a modern, user-friendly interface, privacy-focused design, and helpful resources for users seeking support.
 
-## Available Scripts
+## Features
+- AI-powered chat interface for mental health support
+- User authentication (login/signup)
+- Privacy policy, terms, and legal information
+- FAQ and About sections
+- Responsive, accessible UI
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm start`
+### Prerequisites
+- Node.js (v14 or higher recommended)
+- npm (comes with Node.js)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/codebylalit/Ai-Therapist.git
+   cd Ai Therapist
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Running the App
+To start the development server:
+```bash
+npm start
+```
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-### `npm test`
+### Building for Production
+To build the app for production:
+```bash
+npm run build
+```
+The build will be output to the `build/` directory.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Structure
+```
+Ai Therapist/
+├── public/              # Static assets and HTML
+├── src/
+│   ├── components/      # React components (UI, pages, features)
+│   ├── config/          # API and configuration files
+│   ├── firebase.js      # Firebase setup (no secrets included)
+│   ├── App.js           # Main app component
+│   └── index.js         # Entry point
+├── package.json         # Project metadata and scripts
+└── README.md            # Project documentation
+```
 
-### `npm run build`
+## Tech Stack
+- React
+- Tailwind CSS
+- Firebase
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for improvements or bug fixes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
+[Specify your license here]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+**Note:** No sensitive data or API keys are included in this repository. Please configure your own environment variables and secrets securely when deploying.
