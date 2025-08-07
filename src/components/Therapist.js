@@ -1,17 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import ReactMarkdown from 'react-markdown';
 import './App.css';
 
 const genAI = new GoogleGenerativeAI("AIzaSyA4LQ-Ic5Mo35NJ-ECVq3okfbw31uQSrcs");
 
-function Therapist() {
+const Therapist = () => {
   const [messages, setMessages] = useState([]); // {role: 'user'|'ai', text: string}
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [circleState, setCircleState] = useState('idle'); // idle | listening | speaking
   const inputRef = useRef(null);
   const recognitionRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Voice input (Speech-to-Text)
   const handleMicClick = () => {
@@ -89,6 +94,12 @@ function Therapist() {
     }
   };
 
+  const handleClearConversation = () => {
+    setMessages([]);
+    setInput('');
+    inputRef.current?.focus();
+  };
+
   // Circle animation state
   let circleClass = 'therapist-circle-slime';
   if (circleState === 'listening') circleClass += ' slime-listening';
@@ -142,7 +153,7 @@ function Therapist() {
         )}
       </div>
       {/* Input */}
-      <div className="w-full flex gap-2">
+      <div className="w-full flex gap-2 mb-2">
         <input
           ref={inputRef}
           className="flex-1 rounded-full border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -163,8 +174,17 @@ function Therapist() {
           Send
         </button>
       </div>
+      <button
+        className="text-xs text-gray-500 hover:text-gray-700 underline"
+        onClick={handleClearConversation}
+        disabled={loading}
+      >
+        Clear Conversation
+      </button>
     </div>
   );
-}
+};
+
+Therapist.propTypes = {};
 
 export default Therapist; 
