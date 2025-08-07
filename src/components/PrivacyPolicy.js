@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "../App";
 
-function PrivacyPolicy() {
+const PrivacyPolicy = () => {
   const { theme } = useTheme();
   return (
     <div className={`max-w-2xl mx-auto px-4 py-12 text-left transition-colors duration-300 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
@@ -44,6 +44,6 @@ function PrivacyPolicy() {
       </section>
     </div>
   );
-}
+};
 
 export default PrivacyPolicy; 
