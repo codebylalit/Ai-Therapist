@@ -6,82 +6,92 @@ import FAQAccordion from "./FAQAccordion";
 import { useTheme } from "../App";
 
 // Icons
-const ShieldIcon = () => (
-  <svg
-    className="w-7 h-7 text-yellow-500"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.917l9 3 9-3a12.02 12.02 0 00-2.382-8.977z"
-    ></path>
-  </svg>
-);
-const BrainIcon = () => (
-  <svg
-    className="w-7 h-7 text-yellow-500"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M4.871 14.823c-1.218-1.223-1.871-2.883-1.871-4.646C3 8.017 4.455 6.32 6.182 5.34c1.727-.98 3.818-.98 5.545 0 .93.528 1.764 1.277 2.455 2.162M4.871 14.823c-1.353.484-2.871.182-4.09-.618M4.871 14.823c1.218 1.223 2.871 1.87 4.644 1.87h.01c1.773 0 3.426-.647 4.644-1.87M19.129 14.823c1.218-1.223 1.871-2.883 1.871-4.646 0-2.16-1.455-3.857-3.182-4.837-1.727-.98-3.818-.98-5.545 0-.93.528-1.764 1.277-2.455 2.162m4.9 7.301c1.353.484 2.871.182 4.09-.618m-4.09.618c-1.218 1.223-2.871 1.87-4.644 1.87h-.01c-1.773 0-3.426-.647-4.644-1.87m9.288-5.43c.53-1.533.53-3.21 0-4.743"
-    ></path>
-  </svg>
-);
-const ProfileIcon = () => (
-  <svg
-    className="w-7 h-7 text-yellow-500"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-    ></path>
-  </svg>
-);
-const DocumentIcon = () => (
-  <svg
-    className="w-7 h-7 text-yellow-500"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-    ></path>
-  </svg>
-);
-const MoonIcon = () => (
-  <svg
-    className="w-7 h-7 text-yellow-500"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-    ></path>
-  </svg>
-);
+const ShieldIcon = () => {
+  return (
+    <svg
+      className="w-7 h-7 text-yellow-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.917l9 3 9-3a12.02 12.02 0 00-2.382-8.977z"
+      ></path>
+    </svg>
+  );
+};
+const BrainIcon = () => {
+  return (
+    <svg
+      className="w-7 h-7 text-yellow-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M4.871 14.823c-1.218-1.223-1.871-2.883-1.871-4.646C3 8.017 4.455 6.32 6.182 5.34c1.727-.98 3.818-.98 5.545 0 .93.528 1.764 1.277 2.455 2.162M4.871 14.823c-1.353.484-2.871.182-4.09-.618M4.871 14.823c1.218 1.223 2.871 1.87 4.644 1.87h.01c1.773 0 3.426-.647 4.644-1.87M19.129 14.823c1.218-1.223 1.871-2.883 1.871-4.646 0-2.16-1.455-3.857-3.182-4.837-1.727-.98-3.818-.98-5.545 0-.93.528-1.764 1.277-2.455 2.162m4.9 7.301c1.353.484 2.871.182 4.09-.618m-4.09.618c-1.218 1.223-2.871 1.87-4.644 1.87h-.01c-1.773 0-3.426-.647-4.644-1.87m9.288-5.43c.53-1.533.53-3.21 0-4.743"
+      ></path>
+    </svg>
+  );
+};
+const ProfileIcon = () => {
+  return (
+    <svg
+      className="w-7 h-7 text-yellow-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+      ></path>
+    </svg>
+  );
+};
+const DocumentIcon = () => {
+  return (
+    <svg
+      className="w-7 h-7 text-yellow-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+      ></path>
+    </svg>
+  );
+};
+const MoonIcon = () => {
+  return (
+    <svg
+      className="w-7 h-7 text-yellow-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+      ></path>
+    </svg>
+  );
+};
 
 const features = [
   {
@@ -160,7 +170,7 @@ const Waveform = () => (
   </div>
 );
 
-function LandingPage() {
+const LandingPage = () => {
   const { theme } = useTheme();
 
   return (
@@ -358,6 +368,6 @@ function LandingPage() {
       <Footer />
     </div>
   );
-}
+};
 
 export default LandingPage;
