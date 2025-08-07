@@ -1,5 +1,5 @@
-import React from "react";
-import { useTheme } from "../App";
+import React from 'react';
+import { useTheme } from '../App';
 
 function Legal() {
   const { theme } = useTheme();
