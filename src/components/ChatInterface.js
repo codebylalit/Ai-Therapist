@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { auth, db } from "../firebase";
 import {
@@ -49,6 +49,24 @@ const ChatInterface = ({
   const hasShownGreetingRef = useRef(false);
   const [userProfile, setUserProfile] = useState(null);
   const [aiLanguage, setAiLanguage] = useState("english"); // 'english' or 'hindi'
+
+  // useMemo for last assistant/user message
+  const lastAssistantMessage = useMemo(() => {
+    return [...chat].reverse().find((m) => m.sender === "assistant");
+  }, [chat]);
+  const lastUserMessage = useMemo(() => {
+    return [...chat].reverse().find((m) => m.sender === "user");
+  }, [chat]);
+  // Keyboard accessibility for sending messages
+  const handleInputKeyDown = (e) => {
+    if (e.key === "Enter" && !loading && textInput.trim()) {
+      handleTextSend(e);
+    }
+  };
+  // Clear chat button
+  const handleClearChat = () => {
+    setChat([]);
+  };
 
   const getGeminiResponse = async (historyArr) => {
     const history = historyArr
@@ -740,6 +758,7 @@ Stay present. Be helpful. Be kind. Be human.
             placeholder="type your message..."
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
+            onKeyDown={handleInputKeyDown}
             disabled={loading}
             ref={inputRef}
           />
@@ -752,6 +771,13 @@ Stay present. Be helpful. Be kind. Be human.
             <ArrowUp size={24} className="text-yellow-400" />
           </button>
         </form>
+        <button
+          className="mt-2 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm self-end"
+          onClick={handleClearChat}
+          disabled={loading}
+        >
+          Clear Chat
+        </button>
       </div>
     );
   }
