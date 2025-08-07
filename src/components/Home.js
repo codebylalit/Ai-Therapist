@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { auth, db } from "../firebase";
 import {
@@ -59,6 +59,12 @@ import { API_KEYS, VOICE_SETTINGS } from "../config/api";
 
 //API Key
 const genAI = new GoogleGenerativeAI("AIzaSyA4LQ-Ic5Mo35NJ-ECVq3okfbw31uQSrcs");
+
+const formatSessionDate = (date) => {
+  if (!date) return '';
+  const d = typeof date.toDate === 'function' ? date.toDate() : new Date(date);
+  return !isNaN(d) ? d.toLocaleDateString() : '';
+};
 
 const Home = () => {
   const { theme, toggleTheme } = useTheme();
@@ -288,14 +294,14 @@ Stay present. Be helpful. Be kind. Be human.
     setCurrentSessionId(null);
   };
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     try {
       await signOut(auth);
       navigate("/");
     } catch (error) {
       console.error("Error signing out:", error);
     }
-  };
+  }, [auth, navigate]);
 
   const loadSession = async (sessionId) => {
     try {
@@ -531,6 +537,13 @@ Stay present. Be helpful. Be kind. Be human.
           style={{ minWidth: 180, maxWidth: 280 }}
         >
           {notification.message}
+        </div>
+      )}
+
+      {/* Loading Spinner */}
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+          <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
 
