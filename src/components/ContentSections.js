@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "../App";
 
-function ContentSections({
+const ContentSections = ({
   activeSection,
   theme,
   toggleTheme,
@@ -52,7 +52,7 @@ function ContentSections({
   setShowInputEndSessionPopup,
   saveSession,
   userProfile,
-}) {
+}) => {
   const Section = ({ title, description, children }) => (
     <div
       className={`border-b py-8 transition-colors duration-300 ${
@@ -753,6 +753,5 @@ function ContentSections({
   }
 
   return null;
-}
-
+};
 export default ContentSections; 
