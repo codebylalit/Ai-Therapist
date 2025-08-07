@@ -57,7 +57,7 @@ import ChatInterface from "./ChatInterface";
 import NameInputPopup from "./NameInputPopup";
 import { API_KEYS, VOICE_SETTINGS } from "../config/api";
 
-// IMPORTANT: Replace with your actual API key, preferably from environment variables
+//API Key
 const genAI = new GoogleGenerativeAI("AIzaSyA4LQ-Ic5Mo35NJ-ECVq3okfbw31uQSrcs");
 
 function Home() {
@@ -86,7 +86,7 @@ function Home() {
     useState(false);
   const [showNameInputPopup, setShowNameInputPopup] = useState(false);
   const [hasCheckedName, setHasCheckedName] = useState(false);
-  const [aiLanguage, setAiLanguage] = useState('english'); // 'english' or 'hindi'
+  const [aiLanguage, setAiLanguage] = useState('english');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -177,6 +177,7 @@ function Home() {
         setNotification({
           message: "Session saved successfully!",
           type: "success",
+          duration: 1000,
         });
       } catch (error) {
         console.error("Error saving session:", error);

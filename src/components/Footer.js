@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useTheme } from "../App";
+import { Link } from "react-router-dom";
 
 function Footer() {
   const { theme } = useTheme();
@@ -42,16 +42,15 @@ function Footer() {
         >
           calmly
         </span>
-        <span>
+        {/* <span>
           socials
           <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" className="ml-1">instagram</a>{' '}
           <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="ml-1">linkedin</a>
-        </span>
+        </span> */}
         <span>
           <Link to="/legal" className="">legal</Link>{' '}
           <Link to="/privacy-policy" className="">privacy policy</Link>{' '}
           <Link to="/terms-of-service" className="">terms of service</Link>{' '}
-          <Link to="/ai-disclaimer" className="">ai disclaimer</Link>
         </span>
       </div>
       <div
@@ -59,7 +58,7 @@ function Footer() {
           theme === "dark" ? "text-gray-500" : "text-gray-300"
         }`}
       >
-        © 2025 calmly.so
+        © 2025 calmly
       </div>
     </footer>
   );
