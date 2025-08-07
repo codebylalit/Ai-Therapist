@@ -1,6 +1,9 @@
 import React from "react";
 import { useTheme } from "../App";
 
+/**
+ * AI Disclaimer component displays information about the limitations and responsibilities of AI usage.
+ */
 function AiDisclaimer() {
   const { theme } = useTheme();
   return (
