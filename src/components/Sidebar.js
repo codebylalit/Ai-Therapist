@@ -8,12 +8,12 @@ import {
 } from "lucide-react";
 import { useTheme } from "../App";
 
-function Sidebar({ 
-  activeSection, 
-  setActiveSection, 
-  setMode, 
-  handleLogout 
-}) {
+const Sidebar = ({
+  activeSection,
+  setActiveSection,
+  setMode,
+  handleLogout
+}) => {
   const { theme } = useTheme();
 
   return (
@@ -73,6 +73,6 @@ function Sidebar({
       </button>
     </aside>
   );
-}
+};
 
 export default Sidebar; 
