@@ -31,24 +31,26 @@ const GoogleIcon = () => (
   </svg>
 );
 
-function Signup() {
+const Signup = () => {
   const { theme } = useTheme();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const auth = getAuth();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    if (formState.password !== formState.confirmPassword) {
       setError("Passwords do not match");
       return;
     }
     setError("");
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, formState.email, formState.password);
       const user = userCredential.user;
 
       // Create user document in Firestore
@@ -143,8 +145,8 @@ function Signup() {
               <input
                 id="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formState.email}
+                onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                 placeholder="email"
                 className={`w-full px-4 py-2.5 rounded-lg border focus:outline-none focus:ring-1 transition ${
                   theme === "dark"
@@ -166,8 +168,8 @@ function Signup() {
               <input
                 id="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formState.password}
+                onChange={(e) => setFormState({ ...formState, password: e.target.value })}
                 placeholder="password"
                 className={`w-full px-4 py-2.5 rounded-lg border focus:outline-none focus:ring-1 transition ${
                   theme === "dark"
@@ -189,8 +191,8 @@ function Signup() {
               <input
                 id="confirmPassword"
                 type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={formState.confirmPassword}
+                onChange={(e) => setFormState({ ...formState, confirmPassword: e.target.value })}
                 placeholder="confirm password"
                 className={`w-full px-4 py-2.5 rounded-lg border focus:outline-none focus:ring-1 transition ${
                   theme === "dark"
