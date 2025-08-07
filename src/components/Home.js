@@ -60,7 +60,7 @@ import { API_KEYS, VOICE_SETTINGS } from "../config/api";
 //API Key
 const genAI = new GoogleGenerativeAI("AIzaSyA4LQ-Ic5Mo35NJ-ECVq3okfbw31uQSrcs");
 
-function Home() {
+const Home = () => {
   const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
@@ -72,8 +72,11 @@ function Home() {
   const [sessionHistory, setSessionHistory] = useState([]);
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [showEndSessionPopup, setShowEndSessionPopup] = useState(false);
-  const [feedbackText, setFeedbackText] = useState("");
-  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  // Group related state in an object for feedback
+  const [feedback, setFeedback] = useState({
+    text: "",
+    submitted: false
+  });
   const [totalMessages, setTotalMessages] = useState(0);
   const [analyticsCookies, setAnalyticsCookies] = useState(false);
   const [showResetPopup, setShowResetPopup] = useState(false);
@@ -345,17 +348,21 @@ Stay present. Be helpful. Be kind. Be human.
 
   const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
-    if (!feedbackText.trim() || !user) return;
+    if (!feedback.text.trim() || !user) return;
     setLoading(true);
     try {
       await addDoc(collection(db, "feedback"), {
         userId: user.uid,
         email: user.email,
-        feedback: feedbackText,
+        feedback: feedback.text,
         submittedAt: Timestamp.fromDate(new Date()),
       });
-      setFeedbackSubmitted(true);
-      setFeedbackText("");
+      setFeedback({ text: "", submitted: true });
+      setNotification({
+        message: "Thank you for your feedback!",
+        type: "success",
+        duration: 2000,
+      });
     } catch (error) {
       console.error("Error submitting feedback:", error);
       alert(
@@ -830,10 +837,10 @@ Stay present. Be helpful. Be kind. Be human.
             loading={loading}
             handleResetHistory={handleResetHistory}
             handleDeleteAccount={handleDeleteAccount}
-            feedbackText={feedbackText}
-            setFeedbackText={setFeedbackText}
-            feedbackSubmitted={feedbackSubmitted}
-            setFeedbackSubmitted={setFeedbackSubmitted}
+            feedbackText={feedback.text}
+            setFeedbackText={setFeedback.text}
+            feedbackSubmitted={feedback.submitted}
+            setFeedbackSubmitted={setFeedback.submitted}
             handleFeedbackSubmit={handleFeedbackSubmit}
             loadSession={loadSession}
             deleteDoc={deleteDoc}

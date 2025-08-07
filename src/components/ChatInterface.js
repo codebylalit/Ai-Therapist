@@ -15,7 +15,7 @@ import { API_KEYS, VOICE_SETTINGS } from "../config/api";
 // Initialize Google Generative AI with API key from config
 const genAI = new GoogleGenerativeAI(API_KEYS.GEMINI_API_KEY);
 
-function ChatInterface({
+const ChatInterface = ({
   user,
   mode,
   setMode,
@@ -31,12 +31,15 @@ function ChatInterface({
   sessionHistory,
   setSessionHistory,
   saveSession,
-}) {
+}) => {
   const { theme } = useTheme();
   const [textInput, setTextInput] = useState("");
   const [voiceState, setVoiceState] = useState("idle");
-  const [animatedSubtitle, setAnimatedSubtitle] = useState("");
-  const [showYourTurn, setShowYourTurn] = useState(false);
+  // Group animatedSubtitle and showYourTurn in a single state object
+  const [subtitleState, setSubtitleState] = useState({
+    animatedSubtitle: "",
+    showYourTurn: false
+  });
   const [isConnecting, setIsConnecting] = useState(false);
   const [hasShownInitialGreeting, setHasShownInitialGreeting] = useState(false);
   const inputRef = useRef(null);
@@ -152,8 +155,7 @@ Stay present. Be helpful. Be kind. Be human.
         clearInterval(subtitleIntervalRef.current);
       }
       setVoiceState("idle");
-      setAnimatedSubtitle("");
-      setShowYourTurn(false);
+      setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
       return;
     }
     // If idle, start listening
@@ -173,7 +175,7 @@ Stay present. Be helpful. Be kind. Be human.
       const transcript = event.results[0][0].transcript;
       console.log("Speech recognized:", transcript);
       setVoiceState("idle");
-      setShowYourTurn(false);
+      setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
       const userMsg = { sender: "user", message: transcript };
       const newChat = [...chat, userMsg];
       setChat(newChat);
@@ -218,13 +220,12 @@ Stay present. Be helpful. Be kind. Be human.
       clearInterval(subtitleIntervalRef.current);
     }
     setVoiceState("speaking");
-    setAnimatedSubtitle("");
-    setShowYourTurn(false);
+    setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
 
     const words = text.split(" ");
     let idx = 0;
     subtitleIntervalRef.current = setInterval(() => {
-      setAnimatedSubtitle(words.slice(0, idx + 1).join(" "));
+      setSubtitleState({ animatedSubtitle: words.slice(0, idx + 1).join(" "), showYourTurn: false });
       idx++;
       if (idx >= words.length) {
         clearInterval(subtitleIntervalRef.current);
@@ -283,8 +284,7 @@ Stay present. Be helpful. Be kind. Be human.
       audio.onended = () => {
         console.log("ElevenLabs audio playback completed");
         setVoiceState("idle");
-        setAnimatedSubtitle(text); // Show full text after speaking
-        setShowYourTurn(true);
+        setSubtitleState({ animatedSubtitle: text, showYourTurn: true });
         URL.revokeObjectURL(audioUrl); // Clean up the blob URL
 
         // Automatically start listening for the next user input
@@ -308,11 +308,11 @@ Stay present. Be helpful. Be kind. Be human.
             recognitionRef.current = new SpeechRecognition();
             recognitionRef.current.lang = "en-US";
             setVoiceState("listening");
-            setShowYourTurn(false);
+            setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
             recognitionRef.current.onresult = async (event) => {
               const transcript = event.results[0][0].transcript;
               setVoiceState("idle");
-              setShowYourTurn(false);
+              setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
               const userMsg = { sender: "user", message: transcript };
               const newChat = [...chat, userMsg];
               setChat(newChat);
@@ -348,8 +348,7 @@ Stay present. Be helpful. Be kind. Be human.
       audio.onerror = (error) => {
         console.error("ElevenLabs audio playback error:", error);
         setVoiceState("idle");
-        setAnimatedSubtitle(text);
-        setShowYourTurn(true);
+        setSubtitleState({ animatedSubtitle: text, showYourTurn: true });
         URL.revokeObjectURL(audioUrl);
       };
 
@@ -381,8 +380,7 @@ Stay present. Be helpful. Be kind. Be human.
         utter.onend = () => {
           console.log("Browser speech synthesis completed");
           setVoiceState("idle");
-          setAnimatedSubtitle(text);
-          setShowYourTurn(true);
+          setSubtitleState({ animatedSubtitle: text, showYourTurn: true });
           // Auto-listen logic here (same as above)
           if (mode === "voice") {
             console.log(
@@ -403,11 +401,11 @@ Stay present. Be helpful. Be kind. Be human.
               recognitionRef.current = new SpeechRecognition();
               recognitionRef.current.lang = "en-US";
               setVoiceState("listening");
-              setShowYourTurn(false);
+              setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
               recognitionRef.current.onresult = async (event) => {
                 const transcript = event.results[0][0].transcript;
                 setVoiceState("idle");
-                setShowYourTurn(false);
+                setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
                 const userMsg = { sender: "user", message: transcript };
                 const newChat = [...chat, userMsg];
                 setChat(newChat);
@@ -457,8 +455,7 @@ Stay present. Be helpful. Be kind. Be human.
   useEffect(() => {
     if (mode === "voice" && !hasShownGreetingRef.current && chat.length === 0) {
       console.log("Entering voice mode, showing initial greeting...");
-      setAnimatedSubtitle("");
-      setShowYourTurn(false);
+      setSubtitleState({ animatedSubtitle: "", showYourTurn: false });
       setVoiceState("speaking");
       setIsConnecting(true);
       hasShownGreetingRef.current = true;
@@ -509,7 +506,7 @@ Stay present. Be helpful. Be kind. Be human.
               ? "listening..."
               : loading
               ? "thinking..."
-              : showYourTurn
+              : subtitleState.showYourTurn
               ? "your turn"
               : chat.length === 0
               ? "ready"
@@ -534,8 +531,8 @@ Stay present. Be helpful. Be kind. Be human.
           >
             {isConnecting
               ? "Reaching out to you..."
-              : voiceState === "speaking" && animatedSubtitle
-              ? animatedSubtitle
+              : voiceState === "speaking" && subtitleState.animatedSubtitle
+              ? subtitleState.animatedSubtitle
               : (() => {
                   if (loading) {
                     const lastAssistant = [...chat]
