@@ -144,12 +144,6 @@ nav a {
   text-decoration: none;
   transition: color 0.2s;
 }
-nav a:hover {
-  /* Removed yellow background hover effect - keeping only color transition */
-}
-nav a.font-bold.underline {
-  /* Removed yellow background */
-}
 
 .therapist-circle-slime {
   width: 80px;
